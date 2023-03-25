@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0A362E3229CEDD4E00502582 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A362E3129CEDD4E00502582 /* main.cpp */; };
+		0A362E3A29CEDEBB00502582 /* NaiveSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A362E3829CEDEBB00502582 /* NaiveSolver.cpp */; };
+		0A41C4C129CF3A8D006E1529 /* Solver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A41C4BF29CF3A8D006E1529 /* Solver.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +27,11 @@
 /* Begin PBXFileReference section */
 		0A362E2E29CEDD4E00502582 /* SdokuCPP */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SdokuCPP; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A362E3129CEDD4E00502582 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		0A362E3829CEDEBB00502582 /* NaiveSolver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NaiveSolver.cpp; sourceTree = "<group>"; };
+		0A362E3929CEDEBB00502582 /* NaiveSolver.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NaiveSolver.hpp; sourceTree = "<group>"; };
+		0A362E3B29CEDF3A00502582 /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
+		0A41C4BF29CF3A8D006E1529 /* Solver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Solver.cpp; sourceTree = "<group>"; };
+		0A41C4C029CF3A8D006E1529 /* Solver.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Solver.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +65,11 @@
 			isa = PBXGroup;
 			children = (
 				0A362E3129CEDD4E00502582 /* main.cpp */,
+				0A362E3829CEDEBB00502582 /* NaiveSolver.cpp */,
+				0A362E3929CEDEBB00502582 /* NaiveSolver.hpp */,
+				0A362E3B29CEDF3A00502582 /* common.h */,
+				0A41C4BF29CF3A8D006E1529 /* Solver.cpp */,
+				0A41C4C029CF3A8D006E1529 /* Solver.hpp */,
 			);
 			path = SdokuCPP;
 			sourceTree = "<group>";
@@ -119,6 +131,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A41C4C129CF3A8D006E1529 /* Solver.cpp in Sources */,
+				0A362E3A29CEDEBB00502582 /* NaiveSolver.cpp in Sources */,
 				0A362E3229CEDD4E00502582 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
