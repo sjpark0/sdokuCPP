@@ -9,6 +9,7 @@
 #include <sys/time.h>
 #include "common.h"
 #include "NaiveSolver.hpp"
+#include "FastSolver.hpp"
 #include "Solver.hpp"
 
 
@@ -47,35 +48,37 @@ int main(int argc, const char * argv[]) {
     long seconds, microseconds;
     double elapsed;
     
-    NaiveSolver solver;
+    Solver *solver = new NaiveSolver();
     
     //solver.GenerateSdoku(sdoku, 45);
-    solver.PrintSdoku(sdoku);
+    solver->PrintSdoku(sdoku);
     
     gettimeofday(&begin, NULL);
-    solver.SolveSdoku(sdoku);
+    solver->SolveSdoku(sdoku);
     gettimeofday(&end, NULL);
     seconds = end.tv_sec - begin.tv_sec;
     microseconds = end.tv_usec - begin.tv_usec;
     elapsed = seconds + microseconds*1e-6;
     printf("Time measured: %.3f seconds.\n", elapsed);
-    solver.PrintSdoku(sdoku);
+    solver->PrintSdoku(sdoku);
     printf("\n");
     memcpy(sdoku, sdokuOriginal, NUM_X * NUM_Y * NUM_X * NUM_Y * sizeof(int));
     
-    Solver solver1;
-    //solver1.GenerateSdoku(sdoku, 58);
-    solver1.PrintSdoku(sdoku);
+    delete solver;
+    solver = new FastSolver();
+    solver->PrintSdoku(sdoku);
     
     gettimeofday(&begin, NULL);
-    solver1.SolveSdoku(sdoku);
+    solver->SolveSdoku(sdoku);
     gettimeofday(&end, NULL);
     seconds = end.tv_sec - begin.tv_sec;
     microseconds = end.tv_usec - begin.tv_usec;
     elapsed = seconds + microseconds*1e-6;
     printf("Time measured: %.3f seconds.\n", elapsed);
     printf("\n");
-    solver.PrintSdoku(sdoku);
+    solver->PrintSdoku(sdoku);
+    
+    delete solver;
     
     delete []sdoku;
     delete []sdokuOriginal;

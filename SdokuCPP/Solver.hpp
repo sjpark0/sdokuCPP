@@ -17,20 +17,23 @@ using namespace std;
 class Solver
 {
 private:
-    vector<int*> m_solved;
-public:
-    Solver();
-    ~Solver();
-    
     void MakeSdoku(int* sdoku);
-    void GenerateSdoku(int* sdoku, int numRemove);
+    void RemoveComponentSdoku(int* sdoku, int numRemove, vector<COORD> *emptyList);
+    void DeleteSolvedList();
+    virtual int SolveSdoku(int* sdoku, vector<COORD> *emptyList) = 0;
+    
+protected:
+    vector<int*> m_solved;
     int GetAvailableNumber(int* sdoku, int i, int j, int* numList);
     
-    void RemoveComponentSdoku(int* sdoku, int numRemove, vector<COORD> *emptyList);
+public:
+    Solver();
+    virtual ~Solver();
+    
+    void GenerateSdoku(int* sdoku, int numRemove);
+    
     void PrintSdoku(int* sdoku);
-    int SolveSdoku(int* sdoku, vector<COORD> *emptyList);
     void SolveSdoku(int* sdoku);
-    void DeleteSolvedList();
     
     int* GetSdoku(int index);
     int GetNumOfSdoku();

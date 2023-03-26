@@ -11,29 +11,17 @@
 #include <stdio.h>
 #include <vector>
 #include "common.h"
-
+#include "Solver.hpp"
 using namespace std;
 
-class NaiveSolver
+class NaiveSolver : public Solver
 {
 private:
-    vector<int*> m_solved;
+    int SolveSdoku(int* sdoku, vector<COORD> *emptyList) override;
+    
 public:
     NaiveSolver();
-    ~NaiveSolver();
-    
-    void MakeSdoku(int* sdoku);
-    void GenerateSdoku(int* sdoku, int numRemove);
-    int GetAvailableNumber(int* sdoku, int i, int j, int* numList);
-    
-    void RemoveComponentSdoku(int* sdoku, int numRemove, vector<COORD> *emptyList);
-    void PrintSdoku(int* sdoku);
-    int SolveSdoku(int* sdoku, vector<COORD> *emptyList);
-    void SolveSdoku(int* sdoku);
-    void DeleteSolvedList();
-    
-    int* GetSdoku(int index);
-    int GetNumOfSdoku();
+    ~NaiveSolver(); 
 };
 
 #endif /* NaiveSolver_hpp */
