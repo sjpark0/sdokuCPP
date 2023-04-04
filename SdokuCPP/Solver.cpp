@@ -164,6 +164,7 @@ void Solver::SolveSdoku(int *sdoku)
             if (sdoku[j + i * NUM_X * NUM_Y] == 0) {
                 tmpCoord.x = j;
                 tmpCoord.y = i;
+                tmpCoord.group = (j / NUM_X) + (i / NUM_Y) * NUM_Y;
                 emptyList.push_back(tmpCoord);
             }
         }

@@ -13,6 +13,12 @@
 typedef struct _COORD{
     int x;
     int y;
+    int group;
 }COORD;
 
+typedef struct _COORD2{
+    int x;
+    int y;
+    int group;
+}COORD2;
 #endif /* common_h */

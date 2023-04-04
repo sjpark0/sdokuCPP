@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <vector>
+#include <set>
 #include "common.h"
 
 using namespace std;

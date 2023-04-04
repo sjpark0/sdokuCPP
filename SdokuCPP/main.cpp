@@ -10,6 +10,8 @@
 #include "common.h"
 #include "NaiveSolver.hpp"
 #include "FastSolver.hpp"
+#include "FastSolver2.hpp"
+#include "FastSolver3.hpp"
 #include "Solver.hpp"
 
 
@@ -49,37 +51,81 @@ int main(int argc, const char * argv[]) {
     double elapsed;
     
     Solver *solver = new NaiveSolver();
-    
     //solver.GenerateSdoku(sdoku, 45);
     solver->PrintSdoku(sdoku);
-    
     gettimeofday(&begin, NULL);
     solver->SolveSdoku(sdoku);
     gettimeofday(&end, NULL);
     seconds = end.tv_sec - begin.tv_sec;
     microseconds = end.tv_usec - begin.tv_usec;
     elapsed = seconds + microseconds*1e-6;
-    printf("Time measured: %.3f seconds.\n", elapsed);
+    printf("NaiveSolver => Time measured: %.8f seconds.\n", elapsed);
     solver->PrintSdoku(sdoku);
     printf("\n");
-    memcpy(sdoku, sdokuOriginal, NUM_X * NUM_Y * NUM_X * NUM_Y * sizeof(int));
-    
     delete solver;
+    
+    memcpy(sdoku, sdokuOriginal, NUM_X * NUM_Y * NUM_X * NUM_Y * sizeof(int));
     solver = new FastSolver();
     solver->PrintSdoku(sdoku);
-    
     gettimeofday(&begin, NULL);
     solver->SolveSdoku(sdoku);
     gettimeofday(&end, NULL);
     seconds = end.tv_sec - begin.tv_sec;
     microseconds = end.tv_usec - begin.tv_usec;
     elapsed = seconds + microseconds*1e-6;
-    printf("Time measured: %.3f seconds.\n", elapsed);
-    printf("\n");
+    printf("FastSolver => Time measured: %.8f seconds.\n", elapsed);
     solver->PrintSdoku(sdoku);
-    
+    printf("\n");
     delete solver;
     
+    memcpy(sdoku, sdokuOriginal, NUM_X * NUM_Y * NUM_X * NUM_Y * sizeof(int));
+    solver = new FastSolver2();
+    solver->PrintSdoku(sdoku);
+    gettimeofday(&begin, NULL);
+    solver->SolveSdoku(sdoku);
+    gettimeofday(&end, NULL);
+    seconds = end.tv_sec - begin.tv_sec;
+    microseconds = end.tv_usec - begin.tv_usec;
+    elapsed = seconds + microseconds*1e-6;
+    printf("FastSolver2 => Time measured: %.8f seconds.\n", elapsed);
+    solver->PrintSdoku(sdoku);
+    printf("\n");
+    delete solver;
+    
+    memcpy(sdoku, sdokuOriginal, NUM_X * NUM_Y * NUM_X * NUM_Y * sizeof(int));
+    solver = new FastSolver3();
+    solver->PrintSdoku(sdoku);
+    gettimeofday(&begin, NULL);
+    solver->SolveSdoku(sdoku);
+    gettimeofday(&end, NULL);
+    seconds = end.tv_sec - begin.tv_sec;
+    microseconds = end.tv_usec - begin.tv_usec;
+    elapsed = seconds + microseconds*1e-6;
+    printf("FastSolver3 => Time measured: %.8f seconds.\n", elapsed);
+    solver->PrintSdoku(sdoku);
+    printf("\n");
+    delete solver;
     delete []sdoku;
     delete []sdokuOriginal;
+    
+    /*vector<int> test;
+    test.push_back(1);
+    test.push_back(11);
+    test.push_back(111);
+    test.push_back(1111);
+    test.push_back(11111);
+    test.push_back(111111);
+    
+    vector<int>::iterator iter;
+    for(iter = test.begin();iter != test.end();iter++){
+        cout << (*iter) << endl;
+    }
+    cout << test.size() << endl;
+    test.erase(remove(test.begin(), test.end(), 1), test.end());
+    cout << test.size() << endl;
+    
+    for(iter = test.begin();iter != test.end();iter++){
+        cout << (*iter) << endl;
+    }*/
+    
 }
