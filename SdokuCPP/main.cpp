@@ -86,7 +86,7 @@ int main(int argc, const char * argv[]) {
     
     memcpy(sdoku, sdokuOriginal, NUM_X * NUM_Y * NUM_X * NUM_Y * sizeof(int));
     solver = new FastSolver();
-    solver->PrintSdoku(sdoku);
+	solver->PrintSdoku(sdoku);
 #ifdef __APPLE__
 	gettimeofday(&begin, NULL);
 #elif _WIN32

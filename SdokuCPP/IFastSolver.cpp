@@ -116,7 +116,7 @@ int IFastSolver::SolveSdokuR(vector<COORD1> *assignList, vector<int> *availableL
     while(iter != emptyListTemp.end()){
         numList = (int)availableListTemp[iter->x + iter->y * NUM_X * NUM_Y].size();
         if(numList == 0){
-			assignList->clear();
+			assignListTemp->clear();
             delete []availableListTemp;
             delete []availableListTemp2;
             return 0;
@@ -155,8 +155,8 @@ int IFastSolver::SolveSdokuR(vector<COORD1> *assignList, vector<int> *availableL
         availableListTemp2[iter->x + iter->y * NUM_X * NUM_Y] = availableListTemp[iter->x + iter->y * NUM_X * NUM_Y];
     }
     for(int i=0;i<numList;i++){
-        AssignValue(sdokuTemp, tmp.x, tmp.y, tmpList[i], availableListTemp, &emptyListTemp);
-        tempResult = SolveSdokuR(sdokuTemp, availableListTemp, &emptyListTemp);
+        AssignValue(assignListTemp, tmp.x, tmp.y, tmpList[i], availableListTemp, &emptyListTemp);
+        tempResult = SolveSdokuR(assignListTemp, availableListTemp, &emptyListTemp);
         if(tempResult > 1){
             result = 2;
             break;
@@ -179,20 +179,26 @@ int IFastSolver::SolveSdokuR(vector<COORD1> *assignList, vector<int> *availableL
     }
     delete []availableListTemp;
     delete []availableListTemp2;
-    delete []sdokuTemp;
+    delete assignListTemp;
     return result;
 }
+
 int IFastSolver::SolveSdoku(int* sdoku, vector<COORD1> *emptyList)
 {
 	vector<COORD1>::iterator iter;
 	vector<int> *availableList = new vector<int>[NUM_X * NUM_Y * NUM_X * NUM_Y];
+	vector<COORD1> assignList;
 	int result;
 
 	for (iter = emptyList->begin(); iter != emptyList->end(); iter++) {
 		GetAvailableNumber(sdoku, iter->y, iter->x, &availableList[iter->x + iter->y * NUM_X * NUM_Y]);
 	}
 
-	result = SolveSdokuR(sdoku, availableList, emptyList);
+	result = SolveSdokuR(&assignList, availableList, emptyList);
+	
+	for (iter = m_vecSolved[0]->begin(); iter != m_vecSolved[0]->end(); iter++) {
+		sdoku[iter->x + iter->y * NUM_X * NUM_Y] = iter->val;
+	}
 
 	delete[]availableList;
 	return result;

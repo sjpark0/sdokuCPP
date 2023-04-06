@@ -171,7 +171,9 @@ void Solver::SolveSdoku(int *sdoku)
         }
     }
     SolveSdoku(sdoku, &emptyList);
-    memcpy(sdoku, m_solved[0], NUM_X * NUM_Y * NUM_X * NUM_Y * sizeof(int));
+	if (m_solved.size() != 0) {
+		memcpy(sdoku, m_solved[0], NUM_X * NUM_Y * NUM_X * NUM_Y * sizeof(int));
+	}
 }
 
 void Solver::DeleteSolvedList()

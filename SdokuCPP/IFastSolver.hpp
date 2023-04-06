@@ -28,7 +28,6 @@ public:
 	IFastSolver();
     ~IFastSolver();
     
-    //void SolveSdoku(int* sdoku);
 };
 
 #endif /* IFastSolver_hpp */
