@@ -20,7 +20,7 @@ NaiveSolver::~NaiveSolver()
 {
 }
 
-int NaiveSolver::SolveSdoku(int* sdoku, vector<COORD> *emptyList)
+int NaiveSolver::SolveSdoku(int* sdoku, vector<COORD1> *emptyList)
 {
     int *sdokuTemp = new int[NUM_X * NUM_Y * NUM_X * NUM_Y];
     memcpy(sdokuTemp, sdoku, NUM_X * NUM_Y * NUM_X * NUM_Y * sizeof(int));
@@ -34,10 +34,10 @@ int NaiveSolver::SolveSdoku(int* sdoku, vector<COORD> *emptyList)
     
     int *availableList = new int[NUM_X * NUM_Y];
     int numList;
-    vector<COORD>::iterator iter = emptyList->begin();
-    vector<COORD>::iterator iter1;
+    vector<COORD1>::iterator iter = emptyList->begin();
+    vector<COORD1>::iterator iter1;
     
-    vector<COORD> emptyListTemp;
+    vector<COORD1> emptyListTemp;
     
     
     numList = GetAvailableNumber(sdoku, iter->y, iter->x, availableList);

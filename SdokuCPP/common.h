@@ -10,11 +10,12 @@
 
 #define NUM_X 3
 #define NUM_Y 3
-typedef struct _COORD{
+typedef struct _COORD1{
     int x;
     int y;
     int group;
-}COORD;
+	int val;
+}COORD1;
 
 typedef struct _COORD2{
     int x;

@@ -18,10 +18,9 @@ class FastSolver3 : public Solver
 {
 private:
     int m_initialEmptySize;
-    int SolveSdoku(int* sdoku, vector<COORD> *emptyList) override;
-    int SolveSdokuR(int* sdoku, vector<int> *availableList, vector<COORD> *emptyList);
-    int AssignValue(int *sdoku, int x, int y, int val, vector<int> *availableList, vector<COORD> *emptyList);
-    int RestoreValue(int x, int y, int val, vector<int> *availableList, vector<COORD> *emptyList);
+    int SolveSdoku(int* sdoku, vector<COORD1> *emptyList) override;
+    int SolveSdokuR(int* sdoku, vector<int> *availableList, vector<COORD1> *emptyList);
+    int AssignValue(int *sdoku, int x, int y, int val, vector<int> *availableList, vector<COORD1> *emptyList);
     int GetAvailableNumber(int* sdoku, int i, int j, vector<int> *numList);
     
 public:

@@ -17,10 +17,10 @@ FastSolver::FastSolver()
 FastSolver::~FastSolver()
 {
 }
-int FastSolver::SolveSdoku(int* sdoku, vector<COORD> *emptyList)
+int FastSolver::SolveSdoku(int* sdoku, vector<COORD1> *emptyList)
 {
-    vector<COORD> emptyListTemp;
-    vector<COORD>::iterator iter;
+    vector<COORD1> emptyListTemp;
+    vector<COORD1>::iterator iter;
     int *availableList = new int[NUM_X * NUM_Y];
     int numList;
     int *sdokuTemp = new int[NUM_X * NUM_Y * NUM_X * NUM_Y];
@@ -60,7 +60,7 @@ int FastSolver::SolveSdoku(int* sdoku, vector<COORD> *emptyList)
     iter = emptyListTemp.begin();
     numList = GetAvailableNumber(sdokuTemp, iter->y, iter->x, availableList);
     
-    COORD tmp = (*iter);
+    COORD1 tmp = (*iter);
     emptyListTemp.erase(iter);
     result = 0;
     for(int i=0;i<numList;i++){

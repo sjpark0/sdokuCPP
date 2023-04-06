@@ -17,7 +17,7 @@ using namespace std;
 class FastSolver2 : public Solver
 {
 private:
-    int SolveSdoku(int* sdoku, vector<COORD> *emptyList) override;
+    int SolveSdoku(int* sdoku, vector<COORD1> *emptyList) override;
     int GetAvailableNumber(int* sdoku, int i, int j, vector<int> *numList);
     
 public:

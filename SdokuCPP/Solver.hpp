@@ -19,9 +19,9 @@ class Solver
 {
 private:
     void MakeSdoku(int* sdoku);
-    void RemoveComponentSdoku(int* sdoku, int numRemove, vector<COORD> *emptyList);
+    void RemoveComponentSdoku(int* sdoku, int numRemove, vector<COORD1> *emptyList);
     void DeleteSolvedList();
-    virtual int SolveSdoku(int* sdoku, vector<COORD> *emptyList) = 0;
+    virtual int SolveSdoku(int* sdoku, vector<COORD1> *emptyList) = 0;
     
 protected:
     vector<int*> m_solved;

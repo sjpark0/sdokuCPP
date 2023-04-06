@@ -6,14 +6,19 @@
 //
 
 #include <iostream>
+#ifdef __APPLE__
 #include <sys/time.h>
+#elif _WIN32
+#include <Windows.h>
+#endif
+
 #include "common.h"
 #include "NaiveSolver.hpp"
 #include "FastSolver.hpp"
 #include "FastSolver2.hpp"
 #include "FastSolver3.hpp"
+#include "IFastSolver.hpp"
 #include "Solver.hpp"
-
 
 int main(int argc, const char * argv[]) {
     int *sdoku = new int[NUM_X * NUM_Y * NUM_X * NUM_Y];
@@ -43,36 +48,62 @@ int main(int argc, const char * argv[]) {
     sdoku[67] = 6;
     sdoku[74] = 9;
     sdoku[79] = 2;
-    
+	Solver *solver;
     memcpy(sdokuOriginal, sdoku, NUM_X * NUM_Y * NUM_X * NUM_Y * sizeof(int));
-    
+#ifdef __APPLE__   
     timeval begin, end;
     long seconds, microseconds;
     double elapsed;
-    
-    Solver *solver = new NaiveSolver();
+#elif _WIN32
+	LARGE_INTEGER begin, end, freq;
+	double elapsed;
+	QueryPerformanceFrequency(&freq);
+#endif
+    /*solver = new NaiveSolver();
     //solver.GenerateSdoku(sdoku, 45);
     solver->PrintSdoku(sdoku);
+#ifdef __APPLE__
     gettimeofday(&begin, NULL);
+#elif _WIN32
+	QueryPerformanceCounter(&begin);
+#endif
+
     solver->SolveSdoku(sdoku);
+
+#ifdef __APPLE__
     gettimeofday(&end, NULL);
-    seconds = end.tv_sec - begin.tv_sec;
-    microseconds = end.tv_usec - begin.tv_usec;
-    elapsed = seconds + microseconds*1e-6;
+	seconds = end.tv_sec - begin.tv_sec;
+	microseconds = end.tv_usec - begin.tv_usec;
+	elapsed = seconds + microseconds * 1e-6;
+#elif _WIN32
+	QueryPerformanceCounter(&end);
+	elapsed = (end.QuadPart - begin.QuadPart) / (double)freq.QuadPart;
+#endif
     printf("NaiveSolver => Time measured: %.8f seconds.\n", elapsed);
     solver->PrintSdoku(sdoku);
     printf("\n");
-    delete solver;
+    delete solver;*/
     
     memcpy(sdoku, sdokuOriginal, NUM_X * NUM_Y * NUM_X * NUM_Y * sizeof(int));
     solver = new FastSolver();
     solver->PrintSdoku(sdoku);
-    gettimeofday(&begin, NULL);
+#ifdef __APPLE__
+	gettimeofday(&begin, NULL);
+#elif _WIN32
+	QueryPerformanceCounter(&begin);
+#endif
+
     solver->SolveSdoku(sdoku);
-    gettimeofday(&end, NULL);
-    seconds = end.tv_sec - begin.tv_sec;
-    microseconds = end.tv_usec - begin.tv_usec;
-    elapsed = seconds + microseconds*1e-6;
+
+#ifdef __APPLE__
+	gettimeofday(&end, NULL);
+	seconds = end.tv_sec - begin.tv_sec;
+	microseconds = end.tv_usec - begin.tv_usec;
+	elapsed = seconds + microseconds * 1e-6;
+#elif _WIN32
+	QueryPerformanceCounter(&end);
+	elapsed = (end.QuadPart - begin.QuadPart) / (double)freq.QuadPart;
+#endif
     printf("FastSolver => Time measured: %.8f seconds.\n", elapsed);
     solver->PrintSdoku(sdoku);
     printf("\n");
@@ -81,12 +112,23 @@ int main(int argc, const char * argv[]) {
     memcpy(sdoku, sdokuOriginal, NUM_X * NUM_Y * NUM_X * NUM_Y * sizeof(int));
     solver = new FastSolver2();
     solver->PrintSdoku(sdoku);
-    gettimeofday(&begin, NULL);
+#ifdef __APPLE__
+	gettimeofday(&begin, NULL);
+#elif _WIN32
+	QueryPerformanceCounter(&begin);
+#endif
+
     solver->SolveSdoku(sdoku);
-    gettimeofday(&end, NULL);
-    seconds = end.tv_sec - begin.tv_sec;
-    microseconds = end.tv_usec - begin.tv_usec;
-    elapsed = seconds + microseconds*1e-6;
+
+#ifdef __APPLE__
+	gettimeofday(&end, NULL);
+	seconds = end.tv_sec - begin.tv_sec;
+	microseconds = end.tv_usec - begin.tv_usec;
+	elapsed = seconds + microseconds * 1e-6;
+#elif _WIN32
+	QueryPerformanceCounter(&end);
+	elapsed = (end.QuadPart - begin.QuadPart) / (double)freq.QuadPart;
+#endif
     printf("FastSolver2 => Time measured: %.8f seconds.\n", elapsed);
     solver->PrintSdoku(sdoku);
     printf("\n");
@@ -95,16 +137,52 @@ int main(int argc, const char * argv[]) {
     memcpy(sdoku, sdokuOriginal, NUM_X * NUM_Y * NUM_X * NUM_Y * sizeof(int));
     solver = new FastSolver3();
     solver->PrintSdoku(sdoku);
-    gettimeofday(&begin, NULL);
+#ifdef __APPLE__
+	gettimeofday(&begin, NULL);
+#elif _WIN32
+	QueryPerformanceCounter(&begin);
+#endif
+
     solver->SolveSdoku(sdoku);
-    gettimeofday(&end, NULL);
-    seconds = end.tv_sec - begin.tv_sec;
-    microseconds = end.tv_usec - begin.tv_usec;
-    elapsed = seconds + microseconds*1e-6;
+
+#ifdef __APPLE__
+	gettimeofday(&end, NULL);
+	seconds = end.tv_sec - begin.tv_sec;
+	microseconds = end.tv_usec - begin.tv_usec;
+	elapsed = seconds + microseconds * 1e-6;
+#elif _WIN32
+	QueryPerformanceCounter(&end);
+	elapsed = (end.QuadPart - begin.QuadPart) / (double)freq.QuadPart;
+#endif
     printf("FastSolver3 => Time measured: %.8f seconds.\n", elapsed);
     solver->PrintSdoku(sdoku);
     printf("\n");
     delete solver;
+
+	memcpy(sdoku, sdokuOriginal, NUM_X * NUM_Y * NUM_X * NUM_Y * sizeof(int));
+	solver = new IFastSolver();
+	solver->PrintSdoku(sdoku);
+#ifdef __APPLE__
+	gettimeofday(&begin, NULL);
+#elif _WIN32
+	QueryPerformanceCounter(&begin);
+#endif
+
+	solver->SolveSdoku(sdoku);
+
+#ifdef __APPLE__
+	gettimeofday(&end, NULL);
+	seconds = end.tv_sec - begin.tv_sec;
+	microseconds = end.tv_usec - begin.tv_usec;
+	elapsed = seconds + microseconds * 1e-6;
+#elif _WIN32
+	QueryPerformanceCounter(&end);
+	elapsed = (end.QuadPart - begin.QuadPart) / (double)freq.QuadPart;
+#endif
+	printf("Iterative FastSolver => Time measured: %.8f seconds.\n", elapsed);
+	solver->PrintSdoku(sdoku);
+	printf("\n");
+	delete solver;
     delete []sdoku;
     delete []sdokuOriginal;
     

@@ -64,7 +64,7 @@ void Solver::GenerateSdoku(int* sdoku, int numRemove)
     PrintSdoku(sdoku);
     int result = 0;
     int *sdokuTemp = new int[NUM_X * NUM_Y * NUM_X * NUM_Y];
-    vector<COORD> emptyList;
+    vector<COORD1> emptyList;
     while(result != 1){
         m_solved.clear();
         emptyList.clear();
@@ -125,10 +125,10 @@ int Solver::GetAvailableNumber(int* sdoku, int i, int j, int* numList)
 }
 
 
-void Solver::RemoveComponentSdoku(int* sdoku, int numRemove, vector<COORD> *emptyList)
+void Solver::RemoveComponentSdoku(int* sdoku, int numRemove, vector<COORD1> *emptyList)
 {
     int index1, index2;
-    COORD tmpCoord;
+    COORD1 tmpCoord;
     
     for (int i = 0; i < numRemove; ) {
         index1 = rand() % (NUM_X * NUM_Y);
@@ -156,15 +156,16 @@ void Solver::PrintSdoku(int *sdoku)
 
 void Solver::SolveSdoku(int *sdoku)
 {
-    vector<COORD> emptyList;
+    vector<COORD1> emptyList;
     m_solved.clear();
-    COORD tmpCoord;
+    COORD1 tmpCoord;
     for (int i = 0; i < NUM_X * NUM_Y; i++) {
         for (int j = 0; j < NUM_X * NUM_Y; j++) {
             if (sdoku[j + i * NUM_X * NUM_Y] == 0) {
                 tmpCoord.x = j;
                 tmpCoord.y = i;
                 tmpCoord.group = (j / NUM_X) + (i / NUM_Y) * NUM_Y;
+				tmpCoord.val = 0;
                 emptyList.push_back(tmpCoord);
             }
         }

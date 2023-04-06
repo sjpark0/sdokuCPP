@@ -62,10 +62,10 @@ int FastSolver2::GetAvailableNumber(int* sdoku, int i, int j, vector<int>* numLi
     return count;
 }
 
-int FastSolver2::SolveSdoku(int* sdoku, vector<COORD> *emptyList)
+int FastSolver2::SolveSdoku(int* sdoku, vector<COORD1> *emptyList)
 {
-    vector<COORD> emptyListTemp;
-    vector<COORD>::iterator iter;
+    vector<COORD1> emptyListTemp;
+    vector<COORD1>::iterator iter;
     vector<int> availableList(NUM_X * NUM_Y);
     
     int numList;
@@ -84,7 +84,7 @@ int FastSolver2::SolveSdoku(int* sdoku, vector<COORD> *emptyList)
             return 0;
         }
         if(numList == 1){
-            COORD tmp = (*iter);
+            COORD1 tmp = (*iter);
             emptyListTemp.erase(iter);
             sdokuTemp[tmp.x + tmp.y * NUM_X * NUM_Y] = availableList[0];
             
@@ -108,7 +108,7 @@ int FastSolver2::SolveSdoku(int* sdoku, vector<COORD> *emptyList)
     iter = emptyListTemp.begin();
     numList = GetAvailableNumber(sdokuTemp, iter->y, iter->x, &availableList);
     
-    COORD tmp = (*iter);
+    COORD1 tmp = (*iter);
     emptyListTemp.erase(iter);
     result = 0;
     for(int i=0;i<numList;i++){
