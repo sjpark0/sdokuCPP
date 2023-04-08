@@ -13,7 +13,7 @@
 #include "common.h"
 #include "Solver.hpp"
 using namespace std;
-
+// NewFastSolver + FastSolver3
 class IFastSolver : public Solver
 {
 private:

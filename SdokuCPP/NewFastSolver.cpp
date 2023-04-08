@@ -71,9 +71,10 @@ int NewFastSolver::GetAvailableNumber(int y, int x, vector<COORD2> *originalEmpt
     int count = 0;
     vector<COORD1>::iterator iter1;
     vector<COORD2>::iterator iter2;
-    for (int i = 0; i < NUM_X * NUM_Y; i++) {
+    /*for (int i = 0; i < NUM_X * NUM_Y; i++) {
         numListTemp[i] = 0;
-    }
+    }*/
+    memset(numListTemp, 0, NUM_X * NUM_Y * sizeof(int));
     for(iter2 = originalEmptyList->begin();iter2 != originalEmptyList->end();iter2++){
         if(iter2->x == x && iter2->y == y){
             for(int i=0;i<NUM_X * NUM_Y;i++){

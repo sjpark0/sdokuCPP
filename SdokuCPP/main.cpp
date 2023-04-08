@@ -19,6 +19,7 @@
 #include "FastSolver2.hpp"
 #include "FastSolver3.hpp"
 #include "NewFastSolver.hpp"
+#include "IFastSolver.hpp"
 #include "Solver.hpp"
 
 int main(int argc, const char * argv[]) {
@@ -210,6 +211,30 @@ int main(int argc, const char * argv[]) {
     printf("\n");
     delete solver;
     
+    memcpy(sdoku, sdokuOriginal, NUM_X * NUM_Y * NUM_X * NUM_Y * sizeof(int));
+    solver = new IFastSolver();
+    solver->PrintSdoku(sdoku);
+#ifdef __APPLE__
+    gettimeofday(&begin, NULL);
+#elif _WIN32
+    QueryPerformanceCounter(&begin);
+#endif
+
+    solver->SolveSdoku(sdoku);
+
+#ifdef __APPLE__
+    gettimeofday(&end, NULL);
+    seconds = end.tv_sec - begin.tv_sec;
+    microseconds = end.tv_usec - begin.tv_usec;
+    elapsed = seconds + microseconds * 1e-6;
+#elif _WIN32
+    QueryPerformanceCounter(&end);
+    elapsed = (end.QuadPart - begin.QuadPart) / (double)freq.QuadPart;
+#endif
+    printf("IFastSolver => Time measured: %.8f seconds.\n", elapsed);
+    solver->PrintSdoku(sdoku);
+    printf("\n");
+    delete solver;
     delete []sdoku;
     delete []sdokuOriginal;
     
