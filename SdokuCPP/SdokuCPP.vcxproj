@@ -23,7 +23,7 @@
     <ProjectGuid>{57E210C3-1BCA-434A-8B2D-7A92558FEF70}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>SdokuCPP</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -42,15 +42,15 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -152,20 +152,24 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="FastSolver.cpp" />
+    <ClCompile Include="FastSolver1.cpp" />
     <ClCompile Include="FastSolver2.cpp" />
     <ClCompile Include="FastSolver3.cpp" />
     <ClCompile Include="IFastSolver.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NaiveSolver.cpp" />
+    <ClCompile Include="NewFastSolver.cpp" />
     <ClCompile Include="Solver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h" />
     <ClInclude Include="FastSolver.hpp" />
+    <ClInclude Include="FastSolver1.hpp" />
     <ClInclude Include="FastSolver2.hpp" />
     <ClInclude Include="FastSolver3.hpp" />
     <ClInclude Include="IFastSolver.hpp" />
     <ClInclude Include="NaiveSolver.hpp" />
+    <ClInclude Include="NewFastSolver.hpp" />
     <ClInclude Include="Solver.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
