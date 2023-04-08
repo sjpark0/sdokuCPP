@@ -85,9 +85,9 @@ int Solver::GetAvailableNumber(int* sdoku, int i, int j, int* numList)
     int index1, index2;
     int count = 0;
     bool isAvail;
-    /*for(int i=0;i<NUM_X * NUM_Y;i++){
-        numList[i] = -1;
-    }*/
+    for(int i=0;i<NUM_X * NUM_Y;i++){
+        numList[i] = 0;
+    }
     for (int aa = 1; aa < 1 + NUM_X * NUM_Y; aa++) {
         isAvail = true;
         for (int m = 0; m < NUM_X * NUM_Y; m++) {
@@ -135,9 +135,10 @@ void Solver::RemoveComponentSdoku(int* sdoku, int numRemove, vector<COORD1> *emp
         index2 = rand() % (NUM_X * NUM_Y);
         if (sdoku[index2 + index1 * NUM_X * NUM_Y] != 0) {
             sdoku[index2 + index1 * NUM_X * NUM_Y] = 0;
-            tmpCoord.x = index2;
-            tmpCoord.y = index1;
-            emptyList->push_back(tmpCoord);
+            // 다시확인할것
+            //tmpCoord.x = index2;
+            //tmpCoord.y = index1;
+            //emptyList->push_back(tmpCoord);
             i++;
         }
     }

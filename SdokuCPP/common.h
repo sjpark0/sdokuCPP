@@ -21,5 +21,7 @@ typedef struct _COORD2{
     int x;
     int y;
     int group;
+    int val;
+    int availableList[NUM_X * NUM_Y];
 }COORD2;
 #endif /* common_h */

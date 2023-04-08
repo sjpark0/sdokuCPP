@@ -11,6 +11,8 @@
 		0A362E3A29CEDEBB00502582 /* NaiveSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A362E3829CEDEBB00502582 /* NaiveSolver.cpp */; };
 		0A41C4C129CF3A8D006E1529 /* Solver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A41C4BF29CF3A8D006E1529 /* Solver.cpp */; };
 		0A4FD32929D08A4700ED64B7 /* FastSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A4FD32729D08A4700ED64B7 /* FastSolver.cpp */; };
+		0A5BAE6229E132C700FC5E48 /* NewFastSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A5BAE6029E132C700FC5E48 /* NewFastSolver.cpp */; };
+		0A5BAE6529E1544800FC5E48 /* FastSolver1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A5BAE6329E1544800FC5E48 /* FastSolver1.cpp */; };
 		0A68486529D19065002BC256 /* FastSolver2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A68486329D19065002BC256 /* FastSolver2.cpp */; };
 		0A68486829D1933F002BC256 /* FastSolver3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A68486629D1933F002BC256 /* FastSolver3.cpp */; };
 /* End PBXBuildFile section */
@@ -37,6 +39,10 @@
 		0A41C4C029CF3A8D006E1529 /* Solver.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Solver.hpp; sourceTree = "<group>"; };
 		0A4FD32729D08A4700ED64B7 /* FastSolver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FastSolver.cpp; sourceTree = "<group>"; };
 		0A4FD32829D08A4700ED64B7 /* FastSolver.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FastSolver.hpp; sourceTree = "<group>"; };
+		0A5BAE6029E132C700FC5E48 /* NewFastSolver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NewFastSolver.cpp; sourceTree = "<group>"; };
+		0A5BAE6129E132C700FC5E48 /* NewFastSolver.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NewFastSolver.hpp; sourceTree = "<group>"; };
+		0A5BAE6329E1544800FC5E48 /* FastSolver1.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FastSolver1.cpp; sourceTree = "<group>"; };
+		0A5BAE6429E1544800FC5E48 /* FastSolver1.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FastSolver1.hpp; sourceTree = "<group>"; };
 		0A68486329D19065002BC256 /* FastSolver2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FastSolver2.cpp; sourceTree = "<group>"; };
 		0A68486429D19065002BC256 /* FastSolver2.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FastSolver2.hpp; sourceTree = "<group>"; };
 		0A68486629D1933F002BC256 /* FastSolver3.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FastSolver3.cpp; sourceTree = "<group>"; };
@@ -81,10 +87,14 @@
 				0A41C4C029CF3A8D006E1529 /* Solver.hpp */,
 				0A4FD32729D08A4700ED64B7 /* FastSolver.cpp */,
 				0A4FD32829D08A4700ED64B7 /* FastSolver.hpp */,
+				0A5BAE6329E1544800FC5E48 /* FastSolver1.cpp */,
+				0A5BAE6429E1544800FC5E48 /* FastSolver1.hpp */,
 				0A68486329D19065002BC256 /* FastSolver2.cpp */,
 				0A68486429D19065002BC256 /* FastSolver2.hpp */,
 				0A68486629D1933F002BC256 /* FastSolver3.cpp */,
 				0A68486729D1933F002BC256 /* FastSolver3.hpp */,
+				0A5BAE6029E132C700FC5E48 /* NewFastSolver.cpp */,
+				0A5BAE6129E132C700FC5E48 /* NewFastSolver.hpp */,
 			);
 			path = SdokuCPP;
 			sourceTree = "<group>";
@@ -148,10 +158,12 @@
 			files = (
 				0A4FD32929D08A4700ED64B7 /* FastSolver.cpp in Sources */,
 				0A41C4C129CF3A8D006E1529 /* Solver.cpp in Sources */,
+				0A5BAE6529E1544800FC5E48 /* FastSolver1.cpp in Sources */,
 				0A68486829D1933F002BC256 /* FastSolver3.cpp in Sources */,
 				0A362E3A29CEDEBB00502582 /* NaiveSolver.cpp in Sources */,
 				0A68486529D19065002BC256 /* FastSolver2.cpp in Sources */,
 				0A362E3229CEDD4E00502582 /* main.cpp in Sources */,
+				0A5BAE6229E132C700FC5E48 /* NewFastSolver.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
