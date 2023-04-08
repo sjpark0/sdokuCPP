@@ -13,7 +13,7 @@
 #include "common.h"
 #include "Solver.hpp"
 using namespace std;
-
+// numList가 숫자만이 아니라 각 숫자에 대해 available하면 1, 아니면 0값을 갖도록 함
 class FastSolver1 : public Solver
 {
 private:

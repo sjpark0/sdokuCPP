@@ -13,7 +13,7 @@
 #include "common.h"
 #include "Solver.hpp"
 using namespace std;
-
+// FastSolver의 int array를 vector로 변경
 class FastSolver2 : public Solver
 {
 private:

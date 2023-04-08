@@ -13,7 +13,7 @@
 #include "common.h"
 #include "Solver.hpp"
 using namespace std;
-
+// 항상 GetAvailableNumber를 계산하지말고, 값을 넣을때, availablity를 업데이트 (Release모드에서 가장빠름 - MacOS, Debug모드에서 가장느림 - MacOS)
 class FastSolver3 : public Solver
 {
 private:

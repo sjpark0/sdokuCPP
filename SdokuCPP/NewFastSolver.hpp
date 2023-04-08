@@ -14,6 +14,7 @@
 #include "Solver.hpp"
 using namespace std;
 
+// FastSolver와 동일한 구조인데, sdoku를 리커시브하게 가져가지 않고, 초기 emptyList와 현재의 assignList를 이용하여 availableNumber계산 (Debug모드에서 가장빠름 - MacOS, Release모드에서 가장느림 - MacOS)
 class NewFastSolver : public Solver
 {
 private:

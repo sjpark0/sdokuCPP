@@ -13,7 +13,7 @@
 #include "common.h"
 #include "Solver.hpp"
 using namespace std;
-
+// 중간단계에서 availableList가 1개일경우 채우기
 class FastSolver : public Solver
 {
 private:
