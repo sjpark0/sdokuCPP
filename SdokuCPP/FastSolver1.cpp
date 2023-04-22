@@ -24,8 +24,8 @@ int FastSolver1::GetAvailableNumber(int* sdoku, int i, int j, int* numList, int 
     int index1, index2;
     int count = 0;
     bool isAvail;
-    for(int i=0;i<NUM_X * NUM_Y;i++){
-        numList[i] = 0;
+    for(int mm=0;mm<NUM_X * NUM_Y;mm++){
+        numList[mm] = 0;
     }
     for (int aa = 1; aa < 1 + NUM_X * NUM_Y; aa++) {
         isAvail = true;
