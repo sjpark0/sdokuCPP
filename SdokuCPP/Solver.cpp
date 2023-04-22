@@ -85,8 +85,8 @@ int Solver::GetAvailableNumber(int* sdoku, int i, int j, int* numList)
     int index1, index2;
     int count = 0;
     bool isAvail;
-    for(int i=0;i<NUM_X * NUM_Y;i++){
-        numList[i] = 0;
+    for(int m=0;m<NUM_X * NUM_Y;m++){
+        numList[m] = 0;
     }
     for (int aa = 1; aa < 1 + NUM_X * NUM_Y; aa++) {
         isAvail = true;
