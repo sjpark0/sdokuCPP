@@ -71,7 +71,8 @@ int IFastSolver::AssignValue(vector<COORD1> *assignList, int x, int y, int val, 
 	tmp.group = (x / NUM_X + y / NUM_Y * NUM_Y);
 	tmp.val = val;
 
-    assignList->push_back(tmp);
+    //assignList->push_back(tmp);
+    (*assignList)[assignList->size() - 1].val = val;
     vector<COORD1>::iterator iter;
     vector<int> *tmpList;
     for(iter = emptyList->begin();iter != emptyList->end();iter++){
@@ -123,7 +124,9 @@ int IFastSolver::SolveSdokuR(vector<COORD1> *assignList, vector<int> *availableL
         }
         if(numList == 1){
             COORD1 tmp = (*iter);
+            assignListTemp->push_back(tmp);
             emptyListTemp.erase(iter);
+            
             AssignValue(assignListTemp, tmp.x, tmp.y, availableListTemp[tmp.x + tmp.y * NUM_X * NUM_Y][0], availableListTemp, &emptyListTemp);
             
             iter = emptyListTemp.begin();
@@ -148,6 +151,7 @@ int IFastSolver::SolveSdokuR(vector<COORD1> *assignList, vector<int> *availableL
     vector<int> tmpList = availableListTemp[iter->x + iter->y * NUM_X * NUM_Y];
     numList = (int)tmpList.size();
     COORD1 tmp = (*iter);
+    assignListTemp->push_back(tmp);
     emptyListTemp.erase(iter);
     result = 0;
     

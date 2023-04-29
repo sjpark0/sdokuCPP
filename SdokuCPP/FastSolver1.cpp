@@ -88,6 +88,7 @@ int FastSolver1::SolveSdoku(int* sdoku, vector<COORD1> *emptyList)
             for(int i=0;i<NUM_X * NUM_Y;i++){
                 if(availableList[i]){
                     idx = i;
+                    break;
                 }
             }
             sdokuTemp[iter->x + iter->y * NUM_X * NUM_Y] = idx + 1;
