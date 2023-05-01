@@ -71,10 +71,11 @@ int FastSolver1::SolveSdoku(int* sdoku, vector<COORD1> *emptyList)
     int idx;
     int *sdokuTemp = new int[NUM_X * NUM_Y * NUM_X * NUM_Y];
     memcpy(sdokuTemp, sdoku, NUM_X * NUM_Y * NUM_X * NUM_Y * sizeof(int));
-    emptyListTemp.clear();
+    /*emptyListTemp.clear();
     for(iter = emptyList->begin();iter != emptyList->end();iter++){
         emptyListTemp.push_back(*iter);
-    }
+    }*/
+	emptyListTemp = *emptyList;
     
     iter = emptyListTemp.begin();
     while(iter != emptyListTemp.end()){

@@ -128,12 +128,15 @@ int NewFastSolver::SolveSdokuR(vector<COORD2> *originalEmptyList, vector<COORD1>
     int numList;
     emptyListTemp.clear();
     assignListTemp.clear();
-    for(iter=emptyList->begin();iter != emptyList->end();iter++){
+
+	emptyListTemp = *emptyList;
+	assignListTemp = *assignList;
+    /*for(iter=emptyList->begin();iter != emptyList->end();iter++){
         emptyListTemp.push_back(*iter);
     }
     for(iter=assignList->begin();iter != assignList->end();iter++){
         assignListTemp.push_back(*iter);
-    }
+    }*/
     
     iter = emptyListTemp.begin();
     while(iter != emptyListTemp.end()){

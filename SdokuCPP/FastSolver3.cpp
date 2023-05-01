@@ -98,9 +98,11 @@ int FastSolver3::SolveSdokuR(int* sdoku, vector<int> *availableList, vector<COOR
     int numList;
     int *sdokuTemp = new int[NUM_X * NUM_Y * NUM_X * NUM_Y];
     memcpy(sdokuTemp, sdoku, NUM_X * NUM_Y * NUM_X * NUM_Y * sizeof(int));
-    emptyListTemp.clear();
+
+	emptyListTemp = *emptyList;
+    //emptyListTemp.clear();
     for(iter = emptyList->begin();iter != emptyList->end();iter++){
-        emptyListTemp.push_back(*iter);
+        //emptyListTemp.push_back(*iter);
         availableListTemp[iter->x + iter->y * NUM_X * NUM_Y] = availableList[iter->x + iter->y * NUM_X * NUM_Y];
     }
     

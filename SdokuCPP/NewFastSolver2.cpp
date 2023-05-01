@@ -96,14 +96,16 @@ int NewFastSolver2::SolveSdokuR(vector<COORD3> *assignList, vector<COORD3> *empt
     vector<COORD3>::iterator iter, iter1, iter2;
     
     int numList;
-    emptyListTemp.clear();
+    /*emptyListTemp.clear();
     assignListTemp->clear();
     for (iter = assignList->begin(); iter != assignList->end(); iter++) {
         assignListTemp->push_back(*iter);
     }
     for(iter = emptyList->begin();iter != emptyList->end();iter++){
         emptyListTemp.push_back(*iter);
-    }
+    }*/
+	*assignListTemp = *assignList;
+	emptyListTemp = *emptyList;
     
     iter = emptyListTemp.begin();
     while(iter != emptyListTemp.end()){
@@ -143,10 +145,11 @@ int NewFastSolver2::SolveSdokuR(vector<COORD3> *assignList, vector<COORD3> *empt
     emptyListTemp.erase(iter);
     result = 0;
     
-    emptyListTemp2.clear();
+	emptyListTemp2 = emptyListTemp;
+    /*emptyListTemp2.clear();
     for(iter = emptyListTemp.begin();iter != emptyListTemp.end();iter++){
         emptyListTemp2.push_back(*iter);
-    }
+    }*/
     for(int i=0;i<numList;i++){
         AssignValue(assignListTemp, tmp.x, tmp.y, tmp.availableList[i], &emptyListTemp);
         tempResult = SolveSdokuR(assignListTemp, &emptyListTemp);

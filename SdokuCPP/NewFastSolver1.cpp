@@ -104,12 +104,14 @@ int NewFastSolver1::SolveSdokuR(vector<COORD1> *assignList, vector<int> *availab
     vector<COORD1>::iterator iter;
     
     int numList;
-    emptyListTemp.clear();
+	*assignListTemp = *assignList;
+	emptyListTemp = *emptyList;
+	/*emptyListTemp.clear();
 	for (iter = assignList->begin(); iter != assignList->end(); iter++) {
 		assignListTemp->push_back(*iter);
-	}
+	}*/
     for(iter = emptyList->begin();iter != emptyList->end();iter++){
-        emptyListTemp.push_back(*iter);
+        //emptyListTemp.push_back(*iter);
         availableListTemp[iter->x + iter->y * NUM_X * NUM_Y] = availableList[iter->x + iter->y * NUM_X * NUM_Y];
     }
     

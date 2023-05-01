@@ -26,9 +26,11 @@ int FastSolver::SolveSdoku(int* sdoku, vector<COORD1> *emptyList)
     int *sdokuTemp = new int[NUM_X * NUM_Y * NUM_X * NUM_Y];
     memcpy(sdokuTemp, sdoku, NUM_X * NUM_Y * NUM_X * NUM_Y * sizeof(int));
     emptyListTemp.clear();
-    for(iter = emptyList->begin();iter != emptyList->end();iter++){
+
+	emptyListTemp = *emptyList;
+    /*for(iter = emptyList->begin();iter != emptyList->end();iter++){
         emptyListTemp.push_back(*iter);
-    }
+    }*/
     
     iter = emptyListTemp.begin();
     while(iter != emptyListTemp.end()){
