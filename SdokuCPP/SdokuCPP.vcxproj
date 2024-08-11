@@ -155,8 +155,10 @@
     <ClCompile Include="FastSolver1.cpp" />
     <ClCompile Include="FastSolver2.cpp" />
     <ClCompile Include="FastSolver3.cpp" />
+    <ClCompile Include="FastSolver_0.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NaiveSolver.cpp" />
+    <ClCompile Include="NaiveSolver_0.cpp" />
     <ClCompile Include="NewFastSolver.cpp" />
     <ClCompile Include="NewFastSolver1.cpp" />
     <ClCompile Include="NewFastSolver2.cpp" />
@@ -168,7 +170,9 @@
     <ClInclude Include="FastSolver1.hpp" />
     <ClInclude Include="FastSolver2.hpp" />
     <ClInclude Include="FastSolver3.hpp" />
+    <ClInclude Include="FastSolver_0.hpp" />
     <ClInclude Include="NaiveSolver.hpp" />
+    <ClInclude Include="NaiveSolver_0.hpp" />
     <ClInclude Include="NewFastSolver.hpp" />
     <ClInclude Include="NewFastSolver1.hpp" />
     <ClInclude Include="NewFastSolver2.hpp" />
