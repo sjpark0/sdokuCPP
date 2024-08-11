@@ -14,7 +14,9 @@
 
 #include "common.h"
 #include "NaiveSolver.hpp"
+#include "NaiveSolver_0.hpp"
 #include "FastSolver.hpp"
+#include "FastSolver_0.hpp"
 #include "FastSolver1.hpp"
 #include "FastSolver2.hpp"
 #include "FastSolver3.hpp"
@@ -88,6 +90,31 @@ int main(int argc, const char * argv[]) {
     delete solver;
     
     memcpy(sdoku, sdokuOriginal, NUM_X * NUM_Y * NUM_X * NUM_Y * sizeof(int));
+    solver = new NaiveSolver_0();
+    solver->PrintSdoku(sdoku);
+#ifdef __APPLE__
+    gettimeofday(&begin, NULL);
+#elif _WIN32
+    QueryPerformanceCounter(&begin);
+#endif
+
+    solver->SolveSdoku(sdoku);
+
+#ifdef __APPLE__
+    gettimeofday(&end, NULL);
+    seconds = end.tv_sec - begin.tv_sec;
+    microseconds = end.tv_usec - begin.tv_usec;
+    elapsed = seconds + microseconds * 1e-6;
+#elif _WIN32
+    QueryPerformanceCounter(&end);
+    elapsed = (end.QuadPart - begin.QuadPart) / (double)freq.QuadPart;
+#endif
+    printf("NaiveSolver_0 => Time measured: %.8f seconds.\n", elapsed);
+    solver->PrintSdoku(sdoku);
+    printf("\n");
+    delete solver;
+    
+    memcpy(sdoku, sdokuOriginal, NUM_X * NUM_Y * NUM_X * NUM_Y * sizeof(int));
     solver = new FastSolver();
 	solver->PrintSdoku(sdoku);
 #ifdef __APPLE__
@@ -108,6 +135,31 @@ int main(int argc, const char * argv[]) {
 	elapsed = (end.QuadPart - begin.QuadPart) / (double)freq.QuadPart;
 #endif
     printf("FastSolver => Time measured: %.8f seconds.\n", elapsed);
+    solver->PrintSdoku(sdoku);
+    printf("\n");
+    delete solver;
+    
+    memcpy(sdoku, sdokuOriginal, NUM_X * NUM_Y * NUM_X * NUM_Y * sizeof(int));
+    solver = new FastSolver_0();
+    solver->PrintSdoku(sdoku);
+#ifdef __APPLE__
+    gettimeofday(&begin, NULL);
+#elif _WIN32
+    QueryPerformanceCounter(&begin);
+#endif
+
+    solver->SolveSdoku(sdoku);
+
+#ifdef __APPLE__
+    gettimeofday(&end, NULL);
+    seconds = end.tv_sec - begin.tv_sec;
+    microseconds = end.tv_usec - begin.tv_usec;
+    elapsed = seconds + microseconds * 1e-6;
+#elif _WIN32
+    QueryPerformanceCounter(&end);
+    elapsed = (end.QuadPart - begin.QuadPart) / (double)freq.QuadPart;
+#endif
+    printf("FastSolver_0 => Time measured: %.8f seconds.\n", elapsed);
     solver->PrintSdoku(sdoku);
     printf("\n");
     delete solver;

@@ -5,21 +5,21 @@
 //  Created by sjpark on 2023/03/25.
 //
 
-#include "NaiveSolver1.hpp"
+#include "NaiveSolver_0.hpp"
 #include <time.h>
 #include <stdlib.h>
 
 
-NaiveSolver1::NaiveSolver1()
+NaiveSolver_0::NaiveSolver_0()
 {
     m_solved.clear();
 }
 
 
-NaiveSolver1::~NaiveSolver1()
+NaiveSolver_0::~NaiveSolver_0()
 {
 }
-int NaiveSolver1::SolveSdoku(int* sdoku, COORD1 *emptyList, int numEmptyList)
+int NaiveSolver_0::SolveSdoku(int* sdoku, COORD1 *emptyList, int numEmptyList)
 {
     if(numEmptyList == 0){
         int *sdokuTemp = new int[NUM_X * NUM_Y * NUM_X * NUM_Y];
@@ -58,7 +58,7 @@ int NaiveSolver1::SolveSdoku(int* sdoku, COORD1 *emptyList, int numEmptyList)
     delete []availableList;
     return result;
 }
-int NaiveSolver1::SolveSdoku(int* sdoku, vector<COORD1> *emptyList)
+int NaiveSolver_0::SolveSdoku(int* sdoku, vector<COORD1> *emptyList)
 {
     return SolveSdoku(sdoku, emptyList->data(), emptyList->size());
     
