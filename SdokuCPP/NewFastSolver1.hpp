@@ -21,7 +21,7 @@ private:
     int m_initialEmptySize;
     int SolveSdoku(int* sdoku, vector<COORD1> *emptyList) override;
     int SolveSdokuR(vector<COORD1> *assignList, vector<int> *availableList, vector<COORD1> *emptyList);
-    int AssignValue(vector<COORD1> *assignList, int x, int y, int val, vector<int> *availableList, vector<COORD1> *emptyList);
+    int AssignValue(vector<COORD1> *assignList, int x, int y, int val, vector<int> *availableList, vector<COORD1> *emptyList, vector<int> *indexList);
     int GetAvailableNumber(int* sdoku, int i, int j, vector<int> *numList);
     
 public:

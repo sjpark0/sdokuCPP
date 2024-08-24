@@ -62,27 +62,30 @@ int FastSolver3::GetAvailableNumber(int* sdoku, int i, int j, vector<int>* numLi
     return count;
 }
 
-int FastSolver3::AssignValue(int *sdoku, int x, int y, int val, vector<int> *availableList, vector<COORD1> *emptyList)
+int FastSolver3::AssignValue(int *sdoku, int x, int y, int val, vector<int> *availableList, vector<COORD1> *emptyList, vector<int> *indexList)
 {
     int index = x + y * NUM_X * NUM_Y;
     sdoku[index] = val;
     vector<COORD1>::iterator iter;
     vector<int> *tmpList;
+    indexList->clear();
     for(iter = emptyList->begin();iter != emptyList->end();iter++){
         tmpList = &availableList[iter->x + iter->y * NUM_X * NUM_Y];
-        
+        int pre_len = tmpList->size();
         if(iter->x == x){
             tmpList->erase(remove(tmpList->begin(), tmpList->end(), val), tmpList->end());
         }
         else if(iter->y == y){
             tmpList->erase(remove(tmpList->begin(), tmpList->end(), val), tmpList->end());
         }
-        /*else if((iter->x / NUM_X == x / NUM_X) && (iter->y / NUM_Y == y / NUM_Y)){
-            tmpList->erase(remove(tmpList->begin(), tmpList->end(), val), tmpList->end());
-        }*/
         else if(iter->group == (x / NUM_X + y / NUM_Y * NUM_Y)){
             tmpList->erase(remove(tmpList->begin(), tmpList->end(), val), tmpList->end());
         }
+        int post_len = tmpList->size();
+        if(pre_len != post_len){
+            indexList->push_back(iter->x + iter->y * NUM_X * NUM_Y);
+        }
+        
     }
     return 0;
 }
@@ -90,11 +93,10 @@ int FastSolver3::AssignValue(int *sdoku, int x, int y, int val, vector<int> *ava
 int FastSolver3::SolveSdokuR(int* sdoku, vector<int> *availableList, vector<COORD1> *emptyList)
 {
     vector<int> *availableListTemp = new vector<int>[NUM_X * NUM_Y * NUM_X * NUM_Y];
-    vector<int> *availableListTemp2 = new vector<int>[NUM_X * NUM_Y * NUM_X * NUM_Y];
-    
+    vector<int> indexList;
     vector<COORD1> emptyListTemp;
     vector<COORD1>::iterator iter;
-    
+    vector<int>::iterator iterInt;
     int numList;
     int *sdokuTemp = new int[NUM_X * NUM_Y * NUM_X * NUM_Y];
     memcpy(sdokuTemp, sdoku, NUM_X * NUM_Y * NUM_X * NUM_Y * sizeof(int));
@@ -112,13 +114,12 @@ int FastSolver3::SolveSdokuR(int* sdoku, vector<int> *availableList, vector<COOR
         if(numList == 0){
             delete []sdokuTemp;
             delete []availableListTemp;
-            delete []availableListTemp2;
             return 0;
         }
         if(numList == 1){
             COORD1 tmp = (*iter);
             emptyListTemp.erase(iter);
-            AssignValue(sdokuTemp, tmp.x, tmp.y, availableListTemp[tmp.x + tmp.y * NUM_X * NUM_Y][0], availableListTemp, &emptyListTemp);
+            AssignValue(sdokuTemp, tmp.x, tmp.y, availableListTemp[tmp.x + tmp.y * NUM_X * NUM_Y][0], availableListTemp, &emptyListTemp, &indexList);
             
             iter = emptyListTemp.begin();
         }
@@ -130,7 +131,6 @@ int FastSolver3::SolveSdokuR(int* sdoku, vector<int> *availableList, vector<COOR
     if(emptyListTemp.size() == 0){
         m_solved.push_back(sdokuTemp);
         delete []availableListTemp;
-        delete []availableListTemp2;
         return 1;
     }
     
@@ -145,34 +145,19 @@ int FastSolver3::SolveSdokuR(int* sdoku, vector<int> *availableList, vector<COOR
     emptyListTemp.erase(iter);
     result = 0;
     
-    for(iter = emptyListTemp.begin();iter != emptyListTemp.end();iter++){
-        availableListTemp2[iter->x + iter->y * NUM_X * NUM_Y] = availableListTemp[iter->x + iter->y * NUM_X * NUM_Y];
-    }
     for(int i=0;i<numList;i++){
-        AssignValue(sdokuTemp, tmp.x, tmp.y, tmpList[i], availableListTemp, &emptyListTemp);
+        AssignValue(sdokuTemp, tmp.x, tmp.y, tmpList[i], availableListTemp, &emptyListTemp, &indexList);
         tempResult = SolveSdokuR(sdokuTemp, availableListTemp, &emptyListTemp);
         if(tempResult > 1){
             result = 2;
             break;
         }
         result += tempResult;
-        for(iter = emptyListTemp.begin();iter != emptyListTemp.end();iter++){
-            if(iter->x == tmp.x){
-                availableListTemp[iter->x + iter->y * NUM_X * NUM_Y] = availableListTemp2[iter->x + iter->y * NUM_X * NUM_Y];
-            }
-            else if(iter->y == tmp.y){
-                availableListTemp[iter->x + iter->y * NUM_X * NUM_Y] = availableListTemp2[iter->x + iter->y * NUM_X * NUM_Y];
-            }
-            /*else if((iter->x / NUM_X == tmp.x / NUM_X) && (iter->y / NUM_Y == tmp.y / NUM_Y)){
-                availableListTemp[iter->x + iter->y * NUM_X * NUM_Y] = availableListTemp2[iter->x + iter->y * NUM_X * NUM_Y];
-            }*/
-            else if(iter->group == (tmp.x / NUM_X + tmp.y / NUM_Y * NUM_Y)){
-                availableListTemp[iter->x + iter->y * NUM_X * NUM_Y] = availableListTemp2[iter->x + iter->y * NUM_X * NUM_Y];
-            }
+        for(iterInt = indexList.begin();iterInt != indexList.end();iterInt++){
+            availableListTemp[*iterInt].push_back(tmpList[i]);
         }
     }
     delete []availableListTemp;
-    delete []availableListTemp2;
     delete []sdokuTemp;
     return result;
 }

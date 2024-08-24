@@ -63,14 +63,16 @@ int NewFastSolver2::GetAvailableNumber(int* sdoku, int i, int j, vector<int>* nu
     return count;
 }
 
-int NewFastSolver2::AssignValue(vector<COORD3> *assignList, int x, int y, int val, vector<COORD3> *emptyList)
+int NewFastSolver2::AssignValue(vector<COORD3> *assignList, int x, int y, int val, vector<COORD3> *emptyList, vector<int> *indexList)
 {
     (*assignList)[assignList->size() - 1].val = val;
     vector<COORD3>::iterator iter;
     vector<int> *tmpList;
+    int cnt = 0;
+    indexList->clear();
     for(iter = emptyList->begin();iter != emptyList->end();iter++){
         tmpList = &iter->availableList;
-        
+        int pre_len = tmpList->size();
         if(iter->x == x){
             tmpList->erase(remove(tmpList->begin(), tmpList->end(), val), tmpList->end());
         }
@@ -83,6 +85,11 @@ int NewFastSolver2::AssignValue(vector<COORD3> *assignList, int x, int y, int va
         else if(iter->group == (x/NUM_X + y/NUM_Y*NUM_Y)){
             tmpList->erase(remove(tmpList->begin(), tmpList->end(), val), tmpList->end());
         }
+        int post_len = tmpList->size();
+        if(pre_len != post_len){
+            indexList->push_back(cnt);
+        }
+        cnt++;
     }
     return 0;
 }
@@ -90,20 +97,13 @@ int NewFastSolver2::AssignValue(vector<COORD3> *assignList, int x, int y, int va
 int NewFastSolver2::SolveSdokuR(vector<COORD3> *assignList, vector<COORD3> *emptyList)
 {
     vector<COORD3> emptyListTemp;
-    vector<COORD3> emptyListTemp2;
     
     vector<COORD3> *assignListTemp = new vector<COORD3>();
     vector<COORD3>::iterator iter, iter1, iter2;
-    
+    vector<int> indexList;
+    vector<int>::iterator iterInt;
     int numList;
-    /*emptyListTemp.clear();
-    assignListTemp->clear();
-    for (iter = assignList->begin(); iter != assignList->end(); iter++) {
-        assignListTemp->push_back(*iter);
-    }
-    for(iter = emptyList->begin();iter != emptyList->end();iter++){
-        emptyListTemp.push_back(*iter);
-    }*/
+    
 	*assignListTemp = *assignList;
 	emptyListTemp = *emptyList;
     
@@ -119,7 +119,7 @@ int NewFastSolver2::SolveSdokuR(vector<COORD3> *assignList, vector<COORD3> *empt
             assignListTemp->push_back(tmp);
             emptyListTemp.erase(iter);
             
-            AssignValue(assignListTemp, tmp.x, tmp.y, tmp.availableList[0], &emptyListTemp);
+            AssignValue(assignListTemp, tmp.x, tmp.y, tmp.availableList[0], &emptyListTemp, &indexList);
             
             iter = emptyListTemp.begin();
         }
@@ -145,13 +145,9 @@ int NewFastSolver2::SolveSdokuR(vector<COORD3> *assignList, vector<COORD3> *empt
     emptyListTemp.erase(iter);
     result = 0;
     
-	emptyListTemp2 = emptyListTemp;
-    /*emptyListTemp2.clear();
-    for(iter = emptyListTemp.begin();iter != emptyListTemp.end();iter++){
-        emptyListTemp2.push_back(*iter);
-    }*/
+	
     for(int i=0;i<numList;i++){
-        AssignValue(assignListTemp, tmp.x, tmp.y, tmp.availableList[i], &emptyListTemp);
+        AssignValue(assignListTemp, tmp.x, tmp.y, tmp.availableList[i], &emptyListTemp, &indexList);
         tempResult = SolveSdokuR(assignListTemp, &emptyListTemp);
         if(tempResult > 1){
             result = 2;
@@ -159,25 +155,11 @@ int NewFastSolver2::SolveSdokuR(vector<COORD3> *assignList, vector<COORD3> *empt
         }
         result += tempResult;
         
-        iter1 = emptyListTemp.begin();
-        iter2 = emptyListTemp2.begin();
-        
-        for(;iter1 != emptyListTemp.end();){
-            if(iter1->x == tmp.x){
-                iter1->availableList = iter2->availableList;
-            }
-            else if(iter1->y == tmp.y){
-                iter1->availableList = iter2->availableList;
-            }
-            /*else if((iter->x / NUM_X == tmp.x / NUM_X) && (iter->y / NUM_Y == tmp.y / NUM_Y)){
-                availableListTemp[iter->x + iter->y * NUM_X * NUM_Y] = availableListTemp2[iter->x + iter->y * NUM_X * NUM_Y];
-            }*/
-            else if(iter1->group == (tmp.x / NUM_X + tmp.y / NUM_Y * NUM_Y)){
-                iter1->availableList = iter2->availableList;
-            }
-            iter1++;
-            iter2++;
+        for(iterInt = indexList.begin();iterInt != indexList.end();iterInt++){
+            emptyListTemp[*iterInt].availableList.push_back(tmp.availableList[i]);
         }
+        
+        
     }
     delete assignListTemp;
     return result;

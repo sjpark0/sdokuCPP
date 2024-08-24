@@ -23,7 +23,7 @@ private:
     int SolveSdoku(int* sdoku, vector<COORD3> *emptyList);
     
     int SolveSdokuR(vector<COORD3> *assignList, vector<COORD3> *emptyList);
-    int AssignValue(vector<COORD3> *assignList, int x, int y, int val, vector<COORD3> *emptyList);
+    int AssignValue(vector<COORD3> *assignList, int x, int y, int val, vector<COORD3> *emptyList, vector<int> *indexList);
     int GetAvailableNumber(int* sdoku, int i, int j, vector<int> *numList);
     
 public:

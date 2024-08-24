@@ -62,7 +62,7 @@ int NewFastSolver1::GetAvailableNumber(int* sdoku, int i, int j, vector<int>* nu
     return count;
 }
 
-int NewFastSolver1::AssignValue(vector<COORD1> *assignList, int x, int y, int val, vector<int> *availableList, vector<COORD1> *emptyList)
+int NewFastSolver1::AssignValue(vector<COORD1> *assignList, int x, int y, int val, vector<int> *availableList, vector<COORD1> *emptyList, vector<int> *indexList)
 {
     int index = x + y * NUM_X * NUM_Y;
 	COORD1 tmp;
@@ -75,8 +75,11 @@ int NewFastSolver1::AssignValue(vector<COORD1> *assignList, int x, int y, int va
     (*assignList)[assignList->size() - 1].val = val;
     vector<COORD1>::iterator iter;
     vector<int> *tmpList;
+    indexList->clear();
+    
     for(iter = emptyList->begin();iter != emptyList->end();iter++){
         tmpList = &availableList[iter->x + iter->y * NUM_X * NUM_Y];
+        int pre_len = tmpList->size();
         
         if(iter->x == x){
             tmpList->erase(remove(tmpList->begin(), tmpList->end(), val), tmpList->end());
@@ -84,11 +87,12 @@ int NewFastSolver1::AssignValue(vector<COORD1> *assignList, int x, int y, int va
         else if(iter->y == y){
             tmpList->erase(remove(tmpList->begin(), tmpList->end(), val), tmpList->end());
         }
-        /*else if((iter->x / NUM_X == x / NUM_X) && (iter->y / NUM_Y == y / NUM_Y)){
-            tmpList->erase(remove(tmpList->begin(), tmpList->end(), val), tmpList->end());
-        }*/
         else if(iter->group == tmp.group){
             tmpList->erase(remove(tmpList->begin(), tmpList->end(), val), tmpList->end());
+        }
+        int post_len = tmpList->size();
+        if(pre_len != post_len){
+            indexList->push_back(iter->x + iter->y * NUM_X * NUM_Y);
         }
     }
     return 0;
@@ -97,11 +101,12 @@ int NewFastSolver1::AssignValue(vector<COORD1> *assignList, int x, int y, int va
 int NewFastSolver1::SolveSdokuR(vector<COORD1> *assignList, vector<int> *availableList, vector<COORD1> *emptyList)
 {
     vector<int> *availableListTemp = new vector<int>[NUM_X * NUM_Y * NUM_X * NUM_Y];
-    vector<int> *availableListTemp2 = new vector<int>[NUM_X * NUM_Y * NUM_X * NUM_Y];
+    vector<int> indexList;
     
     vector<COORD1> emptyListTemp;
 	vector<COORD1> *assignListTemp = new vector<COORD1>();
     vector<COORD1>::iterator iter;
+    vector<int>::iterator iterInt;
     
     int numList;
 	*assignListTemp = *assignList;
@@ -121,7 +126,6 @@ int NewFastSolver1::SolveSdokuR(vector<COORD1> *assignList, vector<int> *availab
         if(numList == 0){
 			assignListTemp->clear();
             delete []availableListTemp;
-            delete []availableListTemp2;
             return 0;
         }
         if(numList == 1){
@@ -129,7 +133,7 @@ int NewFastSolver1::SolveSdokuR(vector<COORD1> *assignList, vector<int> *availab
             assignListTemp->push_back(tmp);
             emptyListTemp.erase(iter);
             
-            AssignValue(assignListTemp, tmp.x, tmp.y, availableListTemp[tmp.x + tmp.y * NUM_X * NUM_Y][0], availableListTemp, &emptyListTemp);
+            AssignValue(assignListTemp, tmp.x, tmp.y, availableListTemp[tmp.x + tmp.y * NUM_X * NUM_Y][0], availableListTemp, &emptyListTemp, &indexList);
             
             iter = emptyListTemp.begin();
         }
@@ -141,7 +145,6 @@ int NewFastSolver1::SolveSdokuR(vector<COORD1> *assignList, vector<int> *availab
     if(emptyListTemp.size() == 0){
 		m_vecSolved.push_back(assignListTemp);
         delete []availableListTemp;
-        delete []availableListTemp2;
         return 1;
     }
     
@@ -157,34 +160,21 @@ int NewFastSolver1::SolveSdokuR(vector<COORD1> *assignList, vector<int> *availab
     emptyListTemp.erase(iter);
     result = 0;
     
-    for(iter = emptyListTemp.begin();iter != emptyListTemp.end();iter++){
-        availableListTemp2[iter->x + iter->y * NUM_X * NUM_Y] = availableListTemp[iter->x + iter->y * NUM_X * NUM_Y];
-    }
+    
     for(int i=0;i<numList;i++){
-        AssignValue(assignListTemp, tmp.x, tmp.y, tmpList[i], availableListTemp, &emptyListTemp);
+        AssignValue(assignListTemp, tmp.x, tmp.y, tmpList[i], availableListTemp, &emptyListTemp, &indexList);
         tempResult = SolveSdokuR(assignListTemp, availableListTemp, &emptyListTemp);
         if(tempResult > 1){
             result = 2;
             break;
         }
         result += tempResult;
-        for(iter = emptyListTemp.begin();iter != emptyListTemp.end();iter++){
-            if(iter->x == tmp.x){
-                availableListTemp[iter->x + iter->y * NUM_X * NUM_Y] = availableListTemp2[iter->x + iter->y * NUM_X * NUM_Y];
-            }
-            else if(iter->y == tmp.y){
-                availableListTemp[iter->x + iter->y * NUM_X * NUM_Y] = availableListTemp2[iter->x + iter->y * NUM_X * NUM_Y];
-            }
-            /*else if((iter->x / NUM_X == tmp.x / NUM_X) && (iter->y / NUM_Y == tmp.y / NUM_Y)){
-                availableListTemp[iter->x + iter->y * NUM_X * NUM_Y] = availableListTemp2[iter->x + iter->y * NUM_X * NUM_Y];
-            }*/
-            else if(iter->group == (tmp.x / NUM_X + tmp.y / NUM_Y * NUM_Y)){
-                availableListTemp[iter->x + iter->y * NUM_X * NUM_Y] = availableListTemp2[iter->x + iter->y * NUM_X * NUM_Y];
-            }
+        
+        for(iterInt = indexList.begin();iterInt != indexList.end();iterInt++){
+            availableListTemp[*iterInt].push_back(tmpList[i]);
         }
     }
     delete []availableListTemp;
-    delete []availableListTemp2;
     delete assignListTemp;
     return result;
 }
